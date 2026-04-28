@@ -40,24 +40,27 @@ clock = pygame.time.Clock()
 
 
 # Тут опишите все классы игры.
-...
+class GameObject:
+    """
+    Базовый класс, от которого наследуются все объекты.
+    Содержит общие атрибуты: позиция и цвет.
+    """
 
+    def __init__(self, position=None, body_color=None):
+        """
+        Конструктор базового игрового объекта.
+        Аргументы: position (координаты), body_color (цвет).
+        """
+        if position is None:
+            self.position = (320, 240)
+        else:
+            self.position = position
 
-def main():
-    # Инициализация PyGame:
-    pygame.init()
-    # Тут нужно создать экземпляры классов.
-    ...
-
-    # while True:
-    #     clock.tick(SPEED)
-
-        # Тут опишите основную логику игры.
-        # ...
-
-
-if __name__ == '__main__':
-    main()
+    def draw(self, surface):
+        """
+        Абстрактный метод для отрисовки объекта на экране.
+        Аргумент: surface (поверхность, на которой рисуем)
+        """
 
 
 # Метод draw класса Apple
