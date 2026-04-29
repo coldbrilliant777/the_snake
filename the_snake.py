@@ -38,6 +38,16 @@ MOVEMENT_KEYS = {
     pygame.K_RIGHT: RIGHT,
 }
 
+# Цветовая палитра
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+BLUE = (0, 0, 255)
+GREEN = (0, 255, 0)
+LIGHT_GRAY = (200, 200, 200)
+LIGHT_GREEN = (155, 188, 15)
+DARK_GREEN = (15, 56, 15)
+
 # Цвет фона - черный:
 BOARD_BACKGROUND_COLOR = (0, 0, 0)
 
@@ -183,6 +193,7 @@ def draw_info_area(score):
         line = FONT.render(text, True, BLACK)
         screen.blit(line, (SCREEN_WIDTH - 390, y))
         y += 30
+
 
 
 
