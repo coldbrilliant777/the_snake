@@ -1,5 +1,6 @@
 from random import choice, randint
 
+import sys
 import pygame
 
 # Константы для размеров поля и сетки:
@@ -59,7 +60,7 @@ class GameObject:
     def draw(self, surface):
         """
         Абстрактный метод для отрисовки объекта на экране.
-        Аргумент: surface (поверхность, на которой рисуем)
+        Аргумент: surface (поверхность, на которой рисуем).
         """
         pass
 
@@ -73,7 +74,7 @@ class Snake(GameObject):
         self.grow = False
 
     def move(self):
-        """Инициализация движения"""
+        """Инициализация движения."""
         head = self.positions[0]
         new_head = ((head[0] + self.direction[0]) % GRID_WIDTH,
                     (head[1] + self.direction[1]) % GRID_HEIGHT)
@@ -99,7 +100,7 @@ class Snake(GameObject):
             self.direction = new_direction
 
     def reset(self):
-        """Сброс параметров змейки"""
+        """Сброс параметров змейки."""
         self.positions = [(GRID_WIDTH // 2, GRID_HEIGHT // 2)]
         self.direction = RIGHT
 
@@ -149,7 +150,7 @@ class Apple(GameObject):
         pygame.draw.rect(surface, self.body_color, rect)
 
 def draw_game_area(snake, apple, bombs):
-    """Игровое поле"""
+    """Игровое поле."""
     screen.fill(BOARD_BACKGROUND_COLOR)
     for segment in snake.positions:
         snake.draw_cell(segment)
@@ -158,6 +159,20 @@ def draw_game_area(snake, apple, bombs):
 
     if apple.position is not None:
         apple.draw()
+
+def handle_keys(snake):
+    """Обработка пользовательского ввода."""
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit()
+
+            if event.key in MOVEMENT_KEYS:
+                snake.update_direction(MOVEMENT_KEYS[event.key])
 
 def main():
     """Главная функция."""
