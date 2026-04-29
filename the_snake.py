@@ -18,10 +18,11 @@ INSTRUCTION_TEXT = [
 ]
 
 # Константы для размеров поля и сетки:
-SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
+SCREEN_WIDTH = 640, SCREEN_HEIGHT = 480
 GRID_SIZE = 20
 GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
 GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE
+INFO_AREA_WIDTH = 400
 
 # Направления движения:
 UP = (0, -1)
@@ -182,6 +183,25 @@ def draw_info_area(score):
         line = FONT.render(text, True, BLACK)
         screen.blit(line, (SCREEN_WIDTH - 390, y))
         y += 30
+
+
+
+
+def game_over(collision_type):
+    """Сценарий завершения игры."""
+    font = pygame.font.Font(None, 36)
+    if collision_type == "bomb":
+        text = font.render("Game over. Try again", True, RED)
+    elif collision_type == "self":
+        text = font.render("Game over. Try again", True, RED)
+
+    text_x = (SCREEN_WIDTH - INFO_AREA_WIDTH) // 2 - text.get_width() // 2
+    text_y = SCREEN_HEIGHT // 2 - text.get_height() // 2
+    screen.blit(text, (text_x, text_y))
+    pygame.display.flip()
+    pygame.time.delay(2000)
+
+    reset_game(snake, apple, bombs)
 
 def draw_game_area(snake, apple, bombs):
     """Игровое поле."""
