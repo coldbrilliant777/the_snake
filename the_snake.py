@@ -24,6 +24,16 @@ GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
 GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE
 INFO_AREA_WIDTH = 400
 
+# Глобальные переменные
+score = 0
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+clock = pygame.time.Clock()
+
+pygame.init()
+
+FONT = pygame.font.Font(None, 24)
+
+
 # Направления движения:
 UP = (0, -1)
 DOWN = (0, 1)
@@ -182,6 +192,17 @@ class Apple(GameObject):
 
         pygame.draw.rect(surface, self.body_color, rect)
 
+def draw_game_area(snake, apple, bombs):
+    """Игровое поле."""
+    screen.fill(BOARD_BACKGROUND_COLOR)
+    for segment in snake.positions:
+        snake.draw_cell(segment)
+    for bomb in bombs:
+        bomb.draw()
+
+    if apple.position is not None:
+        apple.draw()        
+
 def draw_info_area(score):
     """Информационное поле."""
     info_area = pygame.Rect(SCREEN_WIDTH - 400, 0, 400, SCREEN_HEIGHT)
@@ -223,16 +244,6 @@ def game_over(collision_type):
 
     reset_game(snake, apple, bombs)
 
-def draw_game_area(snake, apple, bombs):
-    """Игровое поле."""
-    screen.fill(BOARD_BACKGROUND_COLOR)
-    for segment in snake.positions:
-        snake.draw_cell(segment)
-    for bomb in bombs:
-        bomb.draw()
-
-    if apple.position is not None:
-        apple.draw()
 
 def handle_keys(snake):
     """Обработка пользовательского ввода."""
