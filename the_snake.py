@@ -3,6 +3,21 @@ from random import choice, randint
 import sys
 import pygame
 
+INSTRUCTION_TEXT = [
+    "+-----------------+",
+    "    Score: {}",
+    "+-----------------+",
+    "> Движение - клавиши стрелок",
+    "> Выход из игры - клавиша Esc",
+    "> Яблоки - красные",
+    "> Отрава - синяя",
+
+    "> За каждые 5 съеденных яблок:",
+    "  + 2 к скорости дижения",
+    "  + 1 отрава на экране",
+    "",
+]
+
 # Константы для размеров поля и сетки:
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
 GRID_SIZE = 20
@@ -148,6 +163,18 @@ class Apple(GameObject):
         )
 
         pygame.draw.rect(surface, self.body_color, rect)
+
+def draw_info_area(score):
+    """Информационное поле."""
+    info_area = pygame.Rect(SCREEN_WIDTH - 400, 0, 400, SCREEN_HEIGHT)
+    pygame.draw.rect(screen, LIGHT_GRAY, info_area)
+    y = 10
+    for text in INSTRUCTION_TEXT:
+        if "{}" in text:
+            text = text.format(score)
+        line = FONT.render(text, True, BLACK)
+        screen.blit(line, (SCREEN_WIDTH - 390, y))
+        y += 30
 
 def draw_game_area(snake, apple, bombs):
     """Игровое поле."""
